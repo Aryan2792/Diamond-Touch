@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    {% include 'adminHeader.html' %}
+    <style>
+        .error {
+            color: red;
+        }
+
+        td {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        $('form').validate();
+    </script>
+</head>
+<body>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+{% include 'adminNavbar.html' %}
+<div class="mx-auto w-75 my-5">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Category Description</th>
+            <th scope="col" colspan="2" class="text-center">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in context %}
+            <tr>
+                <td>{{ i.srno }}</td>
+                <td>{{ i.catName }}</td>
+                <td>{{ i.catDescp }}</td>
+                <td class="text-center">
+                    <button onclick='categoryupdate({{ i }})' class='btn btn-success'>Update</button>
+                </td>
+                <td class="text-center">
+                    <button type="button" onclick="deleteCat({{ i.catid }})" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="myUpdateCategoryModel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="catname">Category Name</label>
+                        <input type="text" class="form-control" data-rule-required="true" name="up_catname"
+                               id="up_catname">
+                    </div>
+                    <div class="form-group">
+                        <label for="#">Category Decription</label>
+                        <textarea class="form-control" name="catDescp" id="catDescp"></textarea>
+                    </div>
+                    <input type="hidden" name="catid" id="catid">
+                    <div class="form-group text-center">
+                        <input type="button" value="Submit" onclick="updateCat()" class="btn btn-outline-primary w-50">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'myjs/viewcategory.js' %}"></script>
+</body>
+</html>

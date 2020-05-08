@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:21:07 GMT -->
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Gemstone | Register</title>
+    {% include 'publicHeader.html' %}
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+<div class="inner-wrapper">
+    <div class="container-fluid no-padding">
+        <div class="row no-gutters overflow-auto">
+            <div class="col-md-6">
+                <div class="main-banner">
+                    <img src="{% static 'assets/img/slider.jpg' %}" class="img-fluid full-width main-img" alt="banner">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="section-2 user-page main-padding">
+                    <div class="login-sec">
+                        <div class="login-box">
+                            <form method="post" action="clientRegistration" id="clientRegistration">
+                                {% csrf_token %}
+                                <h4 class="text-light-black fw-600">Create your account</h4>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="fname" class="text-light-white fs-14">First name</label>
+                                            <input type="text" name="fname" id="fname" class="form-control form-control-submit"
+                                                   placeholder="First Name" data-rule-required="true" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lname" class="text-light-white fs-14">Last name</label>
+                                            <input type="text" name="lname" id="lname" class="form-control form-control-submit"
+                                                   placeholder="Last Name" data-rule-required="true" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="email" class="text-light-white fs-14">Email</label>
+                                            <input type="email" id="email" name="clientemail"
+                                                   class="form-control form-control-submit" placeholder="Email I'd"
+                                                   data-rule-required="true" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-light-white fs-14">Mobile</label>
+                                            <input type="tel" name="mobile"
+                                                   class="form-control form-control-submit" placeholder="Phone Number"
+                                                   data-rule-required="true" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-light-white fs-14">Password (8 character minimum)</label>
+                                            <input type="password" id="password-field" name="cpassw"
+                                                   class="form-control form-control-submit" value=""
+                                                   placeholder="Password" data-rule-required="true" required>
+                                            <div data-name="#password-field"
+                                                 class="fa fa-fw fa-eye field-icon toggle-password"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn-second-2 btn-submit full-width">Create your
+                                                account
+                                            </button>
+                                        </div>
+                                        <div class="form-group text-center"><span>or</span>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <p class="text-light-black mb-0">Have an account? <a href="clientLogin">Sign
+                                                in</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'publicFooter.html' %}
+<script>
+    $('#clientRegistration').validate();
+</script>
+<!-- /Place all Scripts Here -->
+</body>
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:21:07 GMT -->
+</html>

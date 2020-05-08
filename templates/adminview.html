@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <script src="{% static 'myjs/adminview.js' %}"></script>
+    {% include 'adminHeader.html' %}
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+{% include 'adminNavbar.html' %}
+<div class="container mx-auto jumbotron my-4">
+    <div class="display-4 text-center font-weight-bold">Admin View</div>
+    <hr class="bg-danger">
+    <table class="table table-bordered table-hover bg-light">
+        <thead class="thead-dark">
+        <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Admin Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile</th>
+            <th scope="col" colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in context %}
+            <tr>
+                <td>{{ i.srno }}</td>
+                <td>{{ i.email }}</td>
+                <td>{{ i.fullname }}</td>
+                <td>{{ i.mobile }}</td>
+                <td class="text-center">
+                    {% if i.email == request.session.admin.adminEmail %}
+                        <button type="button" class="btn btn-secondary" style="cursor: not-allowed">Delete
+                        </button>
+                        <button type="button" class="btn btn-secondary" style="cursor: not-allowed">Update
+                        </button>
+                    {% else %}
+                        <button type="button" class="btn btn-outline-danger" onclick="deleteadmin('{{ i.email }}')">
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-outline-primary" onclick="updatemodel({{ i }})">Update
+                        </button>
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="updateadminmodel" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Admin Update</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="myform">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" readonly class="form-control" name="email" id="email" autofocus
+                               data-rule-required="true">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="fname">Full Name</label>
+                                <input type="text" class="form-control" id="fname" name="fname" data-rule-required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="mobile">Mobile</label>
+                                <input type="tel" class="form-control" id="mobile" name="mobile" data-rule-required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="button" onclick="updateAdmin()" value="Submit"
+                               class="btn btn-outline-primary w-50">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#myform').validate();
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    {% include 'adminHeader.html' %}
+    <style>
+        .error {
+            color: red;
+        }
+
+        th, td {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        #subtitle{
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border: #87f7ff;
+            background: linear-gradient(#87f7ff 20%,#ffffff);
+            padding: 5px;
+        }
+    </style>
+    <script>
+        $('form').validate();
+    </script>
+</head>
+<body>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+{% include 'adminNavbar.html' %}
+<div class="h3 text-center my-2">Filter Category</div>
+<div class="w-50 mx-auto p-3">
+    <div class="row">
+            <label for="#" class="col-sm-3 font-weight-bolder h3">Category:</label>
+            <select class="form-control col-sm-5" name="supsdfercat" id="supsdfercat" onchange="getdata(this.value)">
+            </select>
+    </div>
+</div>
+<div class="mx-auto w-75 my-2">
+    <div class="h1 text-center" id="subtitle"></div>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Sub-Category Name</th>
+            <th>Category Description</th>
+            <th colspan="2" class="text-center">Action</th>
+        </tr>
+        </thead>
+        <tbody id="tfilter">
+
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="exampleModalCenter">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Sub Category Update</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {#                <form action="subcategoryupdate" method="post">#}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="catname">Sub-Category Name</label>
+                        <input type="text" class="form-control" data-rule-required="true" name="subname"
+                               id="subname">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub-desp">Description</label>
+                        <textarea class="form-control" rows="3" name="subDescription"
+                                  id="subDescription"></textarea>
+                    </div>
+                    <input type="hidden" name="subid" id="subid">
+                    <div class="form-group text-center">
+                        <input type="button" value="Submit" onclick="updateSubCat()"
+                               class="btn btn-outline-primary w-50">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'myjs/showSubCategory.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        category();
+        getdata('main');
+    })
+</script>
+</body>
+</html>

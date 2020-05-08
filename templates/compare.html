@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Gemstone | Homepage-2</title>
+    {% include 'publicHeader.html' %}
+    <style>
+        td{
+            width: 25%;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navigation -->
+{% if request.session.client %}
+    {% include 'clientNavbar.html' %}
+{% else %}
+    {% include 'publicNavbar.html' %}
+{% endif %}
+<div class="main-sec"></div>
+<!-- breadcrumb -->
+<div class="breadcrumb-area">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2 class="text-white">Compare Products</h2>
+            <ul>
+                <li><a href="/">Home</a>
+                </li>
+                <li><a href="shop">Shop</a>
+                </li>
+                <li class="active">Compare</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb -->
+<section class="compare-page-wrapper section-padding">
+    <!-- compare main wrapper start -->
+    <div class="container-fluid custom-container">
+        <div class="compare-page-content-wrap">
+            <div class="compare-table table-responsive">
+                <table class="table table-bordered mb-0">
+                    <thead class="text-center">
+                    <tr>
+                        <th>Product</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Discounted Price</th>
+                        <th>Stock</th>
+                        <th>Add to cart</th>
+                        <th>Remove</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for i in request.session.compareproduct %}
+                        <tr>
+                            <td class="product-image-title">
+                                <a href="shopdetails?pid={{ i.0 }}" class="image">
+                                    <img class="img-fluid" src="{% static 'media/' %}{{ i.6 }}"
+                                         alt="Compare Product">
+                                </a>
+                                <a href="#" class="category">{{ i.7 }}</a>
+                                <a href="shopdetails?pid={{ i.0 }}" class="title">{{ i.1 }}</a>
+                            </td>
+                            <td class="pro-desc"><p>{{ i.5 }}</p></td>
+                            <td class="pro-price">&#8377; {{ i.2 }}</td>
+                            <td class="pro-price">&#8377; {{ i.8 }}</td>
+                            {% if i.3 > 0 %}
+                                <td class="pro-stock"><p style="width: 60px">In Stock</p></td>
+                                <td><a href="shopdetails?pid={{ i.0 }}" class="btn btn-cart" style="width: 125px">Add to Cart</a></td>
+                            {% else %}
+                                <td class="pro-stock">Stock Out</td>
+                                <td><a class="btn btn-sqr disabled bg-danger text-white" style="width: 125px">Out of Stock</a></td>
+                            {% endif %}
+                            <td class="pro-remove">
+                                <button onclick="comparedelete({{ i.0 }})"><i class="pe-7s-trash"></i></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Compare Page Content End -->
+        <!-- compare main wrapper end -->
+</section>
+<script src="{% static 'myjs/compare.js' %}"></script>
+{% include 'publicFooter.html' %}
+</body>
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/compare.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:20:52 GMT -->
+</html>

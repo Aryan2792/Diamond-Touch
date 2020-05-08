@@ -1,0 +1,16 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'UI/jquery-ui.css' %}">
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'UI/jquery-ui.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+{#<script src="{% static 'myjs/adminHome.js' %}"></script>#}
+<script>
+    $(function () {
+        $(".datepicker").datepicker(
+            {dateFormat: 'yy-mm-dd'}
+        );
+    });
+</script>

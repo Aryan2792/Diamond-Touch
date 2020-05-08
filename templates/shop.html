@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/shop-right.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:20:35 GMT -->
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Gemstone | Shop-Right</title>
+    {% include 'publicHeader.html' %}
+</head>
+
+<body>
+<!-- Navigation -->
+{% if request.session.client %}
+    {% include 'clientNavbar.html' %}
+{% else %}
+    {% include 'publicNavbar.html' %}
+{% endif %}
+<div class="main-sec"></div>
+<!-- breadcrumb -->
+<div class="breadcrumb-area">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2 class="text-white">GEM STONE COLLECTIONS</h2>
+            <ul>
+                <li><a href="/">Home</a>
+                </li>
+                <li class="active">Shop</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb -->
+<!--product Start-->
+<section class="section-padding our-product bg-light-theme">
+    <div class="container-fluid custom-container">
+        {% if filter != 'All' and filter != "" %}
+            <div class="h1 text-center mb-5">{{ filter }} Collection</div>
+        {% elif filter == 'All' %}
+            <div></div>
+        {% else %}
+            <div class="h1 text-center mb-5 text-danger"><u>Product not in Stock!</u></div>
+        {% endif %}
+        <div class="row">
+            <div class="col-xl-9 col-lg-8">
+                <div class="full-width">
+                    <div class="row">
+                        {% for i in context %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                <div class="product-box mb-md-20">
+                                    <div class="product-img">
+                                        <a>
+                                            <img onclick="quickviewmodal({{ i }})"
+                                                 src="{% static 'media/' %}{{ i.productimage }}"
+                                                 class="img-fluid full-width" alt="product-img">
+                                        </a>
+                                        <div class="product-badge">
+                                            <div class="product-label new"><span>New</span>
+                                            </div>
+                                            <div class="product-label discount"><span>{{ i.productdiscount }}%</span>
+                                            </div>
+                                        </div>
+                                        <div class="button-group">
+                                            <a onclick="comparelist({{ i.pid }})" data-toggle="tooltip" data-placement="left" title=""
+                                               data-original-title="Add to Compare" tabindex="-1"><i
+                                                    class="pe-7s-refresh-2"></i></a><a><span
+                                                onclick="quickviewmodal({{ i }})" data-toggle="tooltip"
+                                                data-placement="left" title="" data-original-title="Quick View"><i
+                                                class="pe-7s-search"></i></span></a>
+                                        </div>
+                                        <div class="cart-hover"><a href="shopdetails?pid={{ i.pid }}"
+                                                                   class="btn-cart white-btn text-light-green fw-600"
+                                                                   tabindex="-1">Add To Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="product-caption text-center"><span class="product-category"><a
+                                            href="#">{{ i.category }}</a></span>
+                                        <h6 class="product-title fw-500 mt-10"><a class="text-light-black">{{ i.productname }}</a>
+                                        </h6>
+                                        <div class="product-money mt-10"><span
+                                                class="text-dark-red fw-500">&#8377; {{ i.discountedprice }}</span>
+                                            <span class="text-price">&#8377; {{ i.productprice }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4">
+                <div class="side-bar mb-md-40">
+                    <div class="main-box padding-20 side-shop mb-xl-20">
+                        <h4 class="text-light-black">Top Products</h4>
+                        <div id="topproductarticle"></div>
+
+                    </div>
+                    <div class="main-box padding-20 trending-blog-cat mb-xl-20">
+                        <h4 class="text-light-black">Categories</h4>
+                        <ul id="categorylist">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Product-end-->
+
+<!-- modal boxes -->
+<div class="modal fade" id="quickview">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <!-- product details inner end -->
+                <div class="product-details-inner">
+                    <div class="row">
+                        <div class="col-lg-5 align-self-center">
+                            <div class="shop-detail-image">
+                                <div class="detail-slider">
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+                                                <a href="#" class="popup">
+                                                    <img id="productimage"
+                                                         src="{% static 'assets/img/shop/maindetail.jpg' %}"
+                                                         class="img-fluid full-width" alt="slider">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="shop-detail-contents mb-md-40 mt-md-40">
+                                <div class="shop-detail-content-wrapper">
+                                    <h3 class="text-custom-black" id="productname"></h3>
+                                </div>
+                                <div class="price">
+                                    <h4 class="text-custom-red price-tag" id="discountedprice">$45 <span
+                                            class="text-light-white fw-400 fs-14">$50</span></h4>
+                                </div>
+                                <div class="product-full-des mb-20">
+                                    <p class="mb-0" id="productdesc">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                        elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+                                </div>
+                                <div class="availibity mt-20" id="productstock">
+                                </div>
+                                <div class="shop-bottom">
+                                    <div class="product-btn mt-20" id="btncartmodel"><a href="shopdetails?pid=" class="btn-solid with-line ml-2">Add to
+                                        Cart <i class="pe-7s-cart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- product details inner end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+{% include 'publicFooter.html' %}
+<!-- footer -->
+<script src="{% static 'myjs/shop.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        topproducts();
+        category();
+    })
+</script>
+</body>
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/shop-right.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:20:35 GMT -->
+</html>

@@ -1,0 +1,85 @@
+{% load static %}
+<header class="header">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="navigation">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="{% static 'assets/img/logo1.png' %}" class="image-fit" alt="logo">
+                        </a>
+                    </div>
+                    <div class="main-navigation">
+                        <nav>
+                            <ul class="main-menu">
+                                <li class="menu-item"><a href="/" class="text-light-black">Home</a>
+                                </li>
+                                <li class="menu-item"><a href="about" class="text-light-black">About</a>
+                                </li>
+                                <li class="menu-item"><a href="shop" class="text-light-black">Shop</a>
+                                </li>
+                                <li class="menu-item menu-item-has-children" id="navcatsub">
+                                </li>
+                                <li class="menu-item menu-item-has-children"><a href="/"
+                                                                                class="text-light-black">Order</a>
+                                    <ul class="sub-menu">
+                                        {% if request.session.compareproduct %}
+                                            <li class="menu-item"><a href="compare">Compare</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if request.session.product %}
+                                            <li class="menu-item"><a href="cart">Check Out</a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="menu-item"><a href="myorder">Order</a>
+                                        </li>
+                                        <li class="menu-item"><a href="clientChangePassword">Change Password</a>
+                                        </li>
+                                        <li class="menu-item"><a href="clientlogout">Log Out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="right-side-navigation">
+                        <ul>
+                            <li class="hamburger-menu">
+                                <a href="#" class="menu-btn"> <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </a>
+                            </li>
+                            <li class="user-details">
+                                <a> <i class="pe-7s-user"></i> <span>Hi,
+                                    {{ request.session.client.clientName }}
+                                </span>
+                                </a>
+                            </li>
+                            <li class="wishlist"><a href="compare" class="text-dark-red"><i class="pe-7s-bell"></i></a>
+                                <span class="cart" id="comparelistbell">{% if request.session.compareproduct %}
+                                    {{ request.session.compareproduct|length }}
+                                {% else %}
+                                    0
+                                {% endif %} </span>
+                            </li>
+                            <li class="cart"><a href="cart" class="text-dark-red"><i class="pe-7s-cart"></i></a>
+                                <span class="cart" id="cardsession">{% if request.session.product %}
+                                    {{ request.session.product|length }}
+                                {% else %}
+                                    0
+                                {% endif %}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script src="{% static 'myjs/clientNavbar.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        showcategory();
+    })
+</script>

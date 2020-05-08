@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    {% include 'adminHeader.html' %}
+    <style>
+        .error {
+            color: red;
+        }
+        th, td {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        $('form').validate();
+    </script>
+</head>
+<body>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+{% include 'adminNavbar.html' %}
+<div class="h3 text-center my-2" style="text-decoration: crimson underline">Filter Product</div>
+<div class="w-50 mx-auto">
+    <div class="row">
+        <div class="form-group col-sm-6" id="catgory">
+            <label for="#"><b>Category</b></label>
+            <select class="form-control" name="supsdfercat" id="supsdfercat" onclick="getCategory(this.value)">
+                <option value="#" selected>--Select Category--</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6" id="subcatgory">
+            <label for="#"><b>Sub Category</b></label>
+            <select class="form-control" name="subcattbody" id="subcattbody" onchange="getdata(this.value)">
+                <option value="#" selected>--Select Sub-Category--</option>
+            </select>
+        </div>
+    </div>
+    <button onclick="getdata('main')" class="btn btn-outline-dark w-100 badge-pill">&#x25B2; Reset Filter &#x25BC;
+    </button>
+</div>
+<div class="my-2 table-responsive container">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Product Stock</th>
+            <th scope="col">Product Discount</th>
+            <th scope="col">Product Description</th>
+            <th scope="col">Product Image</th>
+            <th scope="col" colspan="2" class="text-center">Action</th>
+        </tr>
+        </thead>
+        <tbody id="tfilter">
+        </tbody>
+    </table>
+</div>
+<div class="modal fade " id="exampleModalCenter">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Sub Category Update</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                <form>
+                    <input type="hidden" name="pid" id="pid">
+                    <div class="form-group">
+                        <label for="#">Product Name</label>
+                        <input type="text" class="form-control" data-rule-required="true" name="pname"
+                               id="pname">
+                    </div>
+                    <div class="form-group">
+                        <label for="#">Product Description</label>
+                        <textarea class="form-control" rows="3" name="pdesc" id="pdesc"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="#">Product Price</label>
+                                <input type="number" name="pprice" id="pprice" min="1" max="100000" class="form-control"
+                                       data-rule-required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="#">Product Stock</label>
+                                <input type="number" name="sprice" id="sprice" min="1" max="100000" class="form-control"
+                                       data-rule-required="true" prefix="$">
+                            </div>
+                            <div class="form-group">
+                                <label for="#">Product Discount</label>
+                                <input type="number" min="1" max="100" class="form-control" data-rule-required="true"
+                                       name="pdiscount" id="pdiscount">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group text-center">
+                        <span class="m-2"><img src="https://noink.abs-cbn.com/no-profile-pic.png" alt="no image"
+                                               id="img"
+                                               class="img-fluid img-thumbnail"
+                                               style="box-sizing: border-box;box-shadow: 10px 10px 30px #ffffff;border: 3px solid white;width: 200px;height: 200px">
+                        </span>
+                                <span class="custom-file" style="overflow: hidden">
+                            <label for="" id="labelimgname" class="custom-file-label"></label>
+                            <input type="file" name="photo" onchange="readURL(this)" id="file" class="custom-file-input"
+                                   accept=".jpg,.jpeg,.png">
+                        </span>
+
+                                <script>
+                                    var file = document.getElementById("file");
+                                    var img = document.getElementById("img");
+                                    var labelimgname = document.getElementById("labelimgname");
+
+                                    function readURL(input) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            img.src = e.target.result;
+                                            labelimgname.innerHTML = input.files[0].name;
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center mt-sm-2" style="border-top: solid 2px greenyellow">
+                        <input type="button" value="Submit" onclick="updateProduct()"
+                               class="btn btn-primary w-50 mt-sm-2 badge-pill">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'myjs/viewProduct.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        supercategory()
+        getdata('main');
+    })
+</script>
+</body>
+</html>

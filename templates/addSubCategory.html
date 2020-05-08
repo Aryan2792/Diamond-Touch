@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% include 'adminHeader.html' %}
+    <style>
+        .error {
+            color: red;
+        }
+
+        td {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        label {
+        font-size: 1.5em;
+    }
+    </style>
+    <script>
+        $('form').validate();
+    </script>
+</head>
+<body>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+{% include 'adminNavbar.html' %}
+<div class="container mx-auto jumbotron my-4 w-50">
+    <div class="h1 text-center font-weight-bold">Add Sub-Category</div>
+    <hr class="bg-danger">
+    <form action="addSubCategory" method="post">
+        {% csrf_token %}
+        <div class="form-group" id="catgory">
+            <label for="email">Category Name</label>
+            <select class="form-control" name="catname" id="supsdfercat">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="catname">Sub-Category Name</label>
+            <input type="text" class="form-control" data-rule-required="true" name="subcatname" id="catname">
+        </div>
+        <div class="form-group">
+            <label for="sub-desp">Description</label>
+            <textarea class="form-control" rows="3" name="subDescription"></textarea>
+        </div>
+        <div class="form-group text-center">
+            <input type="submit" value="Submit" class="btn btn-outline-primary w-50">
+        </div>
+    </form>
+</div>
+<script src="{% static 'myjs/addSubCategory.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        category();
+    })
+</script>
+</body>
+</html>

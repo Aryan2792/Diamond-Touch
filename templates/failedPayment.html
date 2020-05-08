@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+  <title>Pharma &mdash; Colorlib Template</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% include 'publicHeader.html' %}
+</head>
+
+<body>
+  <div class="site-wrap">
+    <div class="site-section py-5">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <span class="icon-cancel display-3 text-warning"></span>
+            <h2 class="display-3 text-black">Payment Fail!</h2>
+            <p class="lead text-danger mb-5">You order's payment is cancelled Because Of Some Techinical Error.</p>
+            <p class="lead text-danger mb-5">We are very sorry. Please Try after some time</p>
+            <p><a href="/" class="btn btn-outline-danger rounded-pill w-25 p-3"><< &nbsp; &nbsp;Back to store</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+      {% include 'publicFooter.html' %}
+  </div>
+</body>
+
+</html>

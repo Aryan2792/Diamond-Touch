@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Gemstone | My Orders</title>
+    {% include 'publicHeader.html' %}
+</head>
+
+<body>
+{% if request.session.client %}
+    {% include 'clientNavbar.html' %}
+{% else %}
+    {% include 'publicNavbar.html' %}
+{% endif %}
+<div class="main-sec"></div>
+<!-- breadcrumb -->
+<div class="breadcrumb-area">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2 class="text-white">Order Details</h2>
+            <ul>
+                <li><a href="/">Home</a>
+                </li>
+                <li><a href="shop">Shop</a>
+                </li>
+                <li class="active">Orders</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb -->
+
+<!-- tracking map -->
+<section class="checkout-page section-padding bg-light-theme">
+    <div class="text-custom-red display-4 text-center">My Orders</div>
+    <div class="container-fluid custom-container">
+        <div class="u-line mb-xl-20">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="col-md-12" method="post">
+                        <div class="site-blocks-table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="pro-thumbnail">Sr No.</th>
+                                    <th class="pro-title">Bill No.</th>
+                                    <th class="pro-price">Bill Date</th>
+                                    <th class="pro-price">Address</th>
+                                    <th class="pro-quantity">Payment Method</th>
+                                    <th class="pro-subtotal">Grand Total</th>
+                                    <th class="pro-remove">Status</th>
+                                    <th class="pro-remove">View Detail</th>
+                                    <th class="pro-remove">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in context %}
+                                    <tr>
+                                        <td>{{ i.srno }}</td>
+                                        <td>{{ i.billid }}</td>
+                                        <td>{{ i.billtime }}</td>
+                                        <td>{{ i.address }}</td>
+                                        <td>{{ i.paymentmethod }}</td>
+                                        <td>&#8377; {{ i.grandtotal }}</td>
+                                        <td>{{ i.status }}</td>
+                                        <td><a class="btn btn-outline-warning"
+                                               href="cientproductdetail?billid={{ i.billid }}">View</a></td>
+                                        <td>{% if i.status == 'pending' %}
+                                            <button type="button" class="btn btn-outline-danger"
+                                                    onclick="cancelledmodal('{{ i.billid }}')">Delete
+                                            </button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-secondary">Delete</button>
+
+                                        {% endif %}
+
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+                <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <a href="shop" class="btn btn-cart"> << Continue Shopping</a>
+                </div>
+            </div>
+    </div>
+
+
+</section>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title mx-auto text-danger font-weight-bolder">Cancel Order</h1>
+            </div>
+            <form action="#" method="get">
+                <div class="modal-body">
+                    <input type="hidden" name="billid" id="billid">
+                    <div class="form-group">
+                        <label for="#" class="h2">Remarks/Reason</label>
+                        <textarea name="remarks" id="remarks" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" onclick="cancelledorder()" value="Submit" class="btn btn-cart bg-primary">
+                    <button type="button" class="btn bg-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src="{% static 'myjs/my-account.js' %}"></script>
+{% include 'publicFooter.html' %}
+</body>
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/order-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:21:02 GMT -->
+</html>

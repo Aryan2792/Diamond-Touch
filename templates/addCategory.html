@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    {% include 'adminHeader.html' %}
+    <style>
+        .error {
+            color: red;
+        }
+
+        td {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        label {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+{% include 'adminNavbar.html' %}
+<div class="container mx-auto jumbotron my-4 w-50">
+    <div class="display-4 text-center font-weight-bold">Add Category</div>
+    <hr class="bg-danger">
+    <form action="addCategory" method="post" id="addCategory">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="catname">Category Name</label>
+            <input type="text" autofocus class="form-control" data-rule-required="true" name="catname" id="catname">
+        </div>
+        <div class="form-group">
+            <label for="#">Category Decription</label>
+            <textarea class="form-control" name="catdesp" id="catdesp"></textarea>
+        </div>
+        <div class="form-group text-center">
+            <input type="submit" value="Submit" class="btn btn-outline-primary w-50">
+        </div>
+    </form>
+</div>
+<script>
+    $('#addCategory').validate();
+</script>
+</body>
+</html>

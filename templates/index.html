@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:15:37 GMT -->
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Gemstone | Homepage</title>
+    {% include 'publicHeader.html' %}
+</head>
+
+<body>
+<!-- Navigation -->
+{% if message %}
+    <script>
+    alert('{{ message }}')
+    </script>
+{% endif %}
+{% if request.session.client %}
+    {% include 'clientNavbar.html' %}
+{% else %}
+    {% include 'publicNavbar.html' %}
+{% endif %}
+<div class="main-sec"></div>
+<!-- slider -->
+<section class="about-us-slider swiper-container p-relative">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide slide-item">
+            <img src="{% static 'assets/img/banner/banner1.jpg' %}" class="img-fluid full-width" alt="Banner">
+            <div class="transform-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 align-self-center">
+                            <div class="right-side-content text-center">
+                                <p class="text-custom-dark">Exclusive offer -40% off this week</p>
+                                <h1 class="text-custom-dark fw-700">Diamonds Jewellery sales</h1>
+                                <h5 class="text-custom-dark fw-400">largest delivery platform in the U.S. and
+                                    Canada</h5>
+                                <a href="shop?discount=40&search=diamond"
+                                   class="btn-solid with-line btn-big mt-20"><span>Explore Collection <i
+                                        class="fas fa-caret-right"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay overlay-bg"></div>
+        </div>
+        <div class="swiper-slide slide-item">
+            <img src="{% static 'assets/img/banner/banner2.jpg' %}" class="img-fluid full-width" alt="Banner">
+            <div class="transform-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 align-self-center">
+                            <div class="right-side-content text-center">
+                                <p class="text-custom-dark">Exclusive offer -10% off this week</p>
+                                <h1 class="text-custom-dark fw-600">jewelry arrivals sales</h1>
+                                <h5 class="text-custom-dark fw-400">Christmas might be over, but our sale isn't. Up to
+                                    70% off</h5>
+                                <a href="shop?discount=10" class="btn-solid with-line btn-big mt-20"><span>Shop Now <i
+                                        class="fas fa-caret-right"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay overlay-bg"></div>
+        </div>
+        <div class="swiper-slide slide-item">
+            <img src="{% static 'assets/img/banner/banner3.jpg' %}" class="img-fluid full-width" alt="Banner">
+            <div class="transform-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 align-self-center">
+                            <div class="right-side-content text-center">
+                                <p class="text-custom-dark">Exclusive offer -80% off this week</p>
+                                <h1 class="text-custom-dark fw-600">Grace Designer Jewellery</h1>
+                                <h5 class="text-custom-dark fw-400">Pre-Baselworld 2018 – Jaquet Droz Grande Second</h5>
+                                <a href="shop?discount=80%" class="btn btn-text mt-20">Learn More </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay overlay-bg"></div>
+        </div>
+    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</section>
+<!-- slider -->
+<!-- Browse by category -->
+<section class="browse-cat bg-theme-primary section-padding">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header-left">
+                    <h3 class="text-light-black header-title title">Browse by Product <span
+                            class="fs-14 align-self-center">
+								<a href="shop">See All Products</a></span></h3>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="category-slider swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for i in context %}
+                            {% if i.srno >= 1 and i.srno <= 20 %}
+                                <div class="swiper-slide">
+                                    <a href="shopdetails?pid={{ i.pid }}" class="categories">
+                                        <div class="icon text-custom-white bg-light-green ">
+                                            <img src="{% static 'media/' %}{{ i.productimage }}" class="rounded-circle"
+                                                 alt="categories">
+                                        </div>
+                                        <span class="text-light-black cat-name">{{ i.productname }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+
+
+                    </div>
+
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Browse by category -->
+<!-- sell section -->
+<section class="recent-order section-padding">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header-left">
+                    <h3 class="text-light-black header-title title">Our Bestselling Items <span class="fs-14">
+								<a href="shop">See All Bestseller</a></span></h3>
+                </div>
+            </div>
+            {% for p in context %}
+                {% if p.srno >= 20 and p.srno <= 25 %}
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6">
+                        <div class="product-box mb-md-20">
+                            <div class="product-img">
+                                <a href="shopdetails?pid={{ p.pid }}">
+                                    <img src="{% static 'media/' %}{{ p.productimage }}" class="img-fluid full-width"
+                                         alt="product-img">
+                                </a>
+                                <div class="product-badge">
+                                    <div class="product-label new"><span>New</span>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <a onclick="comparelist({{ p.pid }})" data-toggle="tooltip" data-placement="left" title=""
+                                       data-original-title="Add to Compare" tabindex="-1"><i
+                                            class="pe-7s-refresh-2"></i></a><a onclick="quickviewmodal({{ p }})"><span
+                                         data-toggle="tooltip"
+                                        data-placement="left" title="" data-original-title="Quick View"><i
+                                        class="pe-7s-search"></i></span></a>
+                                </div>
+                                <div class="cart-hover">
+                                    <a href="shopdetails?pid={{ p.pid }}" class="btn-cart  fw-600" tabindex="-1">Add To
+                                        Cart</a>
+                                </div>
+                            </div>
+                            <div class="product-caption text-center"><span class="product-category"><a
+                                    href="#">{{ p.category }}</a></span>
+                                <h6 class="product-title fw-500 mt-10"><a href="shopdetails?pid={{ p.pid }}"
+                                                                          class="text-light-black">{{ p.productname }}</a>
+                                </h6>
+                                <div class="product-money mt-10"><span
+                                        class="text-dark-red fw-500">&#8377; {{ p.productprice }}</span>
+                                    <span class="text-price">&#8377; {{ p.discountedprice }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- sell section end -->
+<!--shopping section end-->
+<!-- advertisement banner-->
+<section class="section-padding advertisement-banner-1">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="advertisement-text-1">
+                    <h6 class="sub-head">Super deal of the Month</h6>
+                    <h3 class="text-white heading">Women Zircon Crystal <span
+                            class="text-dark-red">Engagement Ring</span> Now</h3>
+                    <div class="ad-count ">
+                        <div class="countdown-box">
+                            <div class="time-box"><span id="mb-days"></span>
+                            </div>
+                            <div class="time-box"><span id="mb-hours"></span>
+                            </div>
+                            <div class="time-box"><span id="mb-minutes"></span>
+                            </div>
+                            <div class="time-box"><span id="mb-seconds"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="shop" class="btn-solid with-line btn-big mt-20"><span>Shop Now <i
+                            class="fas fa-caret-right"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- advertisement banner-->
+<!-- Hot Deals -->
+<section class="ex-collection section-padding bg-theme-primary">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header-left">
+                    <h3 class="text-light-black header-title title"> Our Hot Deals</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for l in context %}
+                {% if 'Diamond JULIANA SOLITAIRE RING Finger Ring' in l.productname %}
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                        <figure class="banner-statistics">
+                            <a href="shop?subid={{ l.subid }}" class="promo-lines">
+                                <img src="{% static 'media/' %}{{ l.productimage }}" alt="product banner"
+                                     class="full-width img-fluid">
+                            </a>
+                            <div class="banner-content text-left">
+                                <h6 class="banner-text1">{{ l.category }}</h6>
+                                <h4 class="banner-text2">Wedding<span>Rings</span></h4>
+                                <a href="shop?subid={{ l.subid }}" class="btn btn-text">Shop Now</a>
+                            </div>
+                        </figure>
+                    </div>
+                {% endif %}
+                {% if 'Diamond MEDHA RUBY STUD EARRINGS Earring' in l.productname %}
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                        <figure class="banner-statistics">
+                            <a href="shop?subid={{ i.subid }}" class="promo-lines">
+                                <img src="{% static 'media/' %}{{ l.productimage }}" alt="product banner"
+                                     class="full-width img-fluid">
+                            </a>
+                            <div class="banner-content text-left">
+                                <h6 class="banner-text1">Earring</h6>
+                                <h4 class="banner-text2">New Earring <span>Arrival</span></h4>
+                                <a href="shop?subid={{ l.subid }}" class="btn btn-text">Shop Now</a>
+                            </div>
+                        </figure>
+                    </div>
+                {% endif %}
+                {% if 'GOLD AND SYNTHETIC STONE PENDANT Pendant' in l.productname %}
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                        <figure class="banner-statistics">
+                            <a href="shop?subid={{ l.subid }}" class="promo-lines">
+                                <img src="{% static 'media/' %}{{ l.productimage }}" alt="product banner"
+                                     class="full-width img-fluid">
+                            </a>
+                            <div class="banner-content text-left">
+                                <h6 class="banner-text1">Pendant</h6>
+                                <h4 class="banner-text2">White Hot <span>Pendants</span></h4>
+                                <a href="shop?subid={{ l.subid }}" class="btn btn-text">Shop Now</a>
+                            </div>
+                        </figure>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!--Hot deals End-->
+<!--shopping section-->
+<section class="section-padding our-product">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header-left">
+                    <h3 class="text-light-black header-title title">Our Latest Products</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="large-product-box  p-relative">
+                    <img src="{% static 'assets/img/promo/p-1.jpg' %}" class="img-fluid full-width" alt="image">
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="row">
+                    {% for k in context %}
+                        {% if k.srno >= 34 and k.srno <= 41 %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                <div class="product-box mb-md-20">
+                                    <div class="product-img">
+                                        <a href="shopdetails?pid={{ k.pid }}">
+                                            <img src="{% static 'media/' %}{{ k.productimage }}"
+                                                 class="img-fluid full-width"
+                                                 alt="product-img">
+                                        </a>
+                                        <div class="product-badge">
+                                            <div class="product-label new"><span>New</span>
+                                            </div>
+                                        </div>
+                                        <div class="button-group">
+                                            <a onclick="comparelist({{ k.pid }})" data-toggle="tooltip" data-placement="left" title=""
+                                               data-original-title="Add to Compare" tabindex="-1"><i
+                                                    class="pe-7s-refresh-2"></i></a><a onclick="quickviewmodal({{ k }})"><span
+                                                 data-toggle="tooltip"
+                                                data-placement="left" title="" data-original-title="Quick View"><i
+                                                class="pe-7s-search"></i></span></a>
+                                        </div>
+                                        <div class="cart-hover"><a href="shopdetails?pid={{ k.pid }}"
+                                                                   class="btn-cart  fw-600"
+                                                                   tabindex="-1">Add To Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="product-caption text-center"><span class="product-category"><a
+                                            href="#">{{ k.category }}</a></span>
+                                        <h6 class="product-title fw-500 mt-10"><a href="shopdetails?pid={{ k.pid }}"
+                                                                                  class="text-light-black">{{ k.productname }}</a>
+                                        </h6>
+                                        <div class="product-money mt-10"><span
+                                                class="text-dark-red fw-500">&#8377; {{ k.productprice }}</span>
+                                            <span class="text-price">&#8377; {{ k.discountedprice }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--shopping section end-->
+<!-- advertisement banner-->
+<section class="section-padding advertisement-banner">
+    <div class="row">
+        <div class="col-12">
+            <div class="advertisement-text">
+                <h3 class="fs-60 text-white">SALE <span class="text-dark-red">25%</span>OFF</h3>
+                <p class="fs-18">Applying For All Products & Shoes and Upto 40% Off Special Promo Stay Cosy With Extra
+                    10% to 20% Off On Mens Wears.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- advertisement banner-->
+<!--shopping section-->
+<section class="section-padding our-product">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header-left">
+                    <h3 class="text-light-black header-title title"> Our Featured Products</h3>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="row">
+                    {% for g in context %}
+                        {% if g.srno >= 26 and g.srno <= 33 %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                <div class="product-box mb-md-20">
+                                    <div class="product-img">
+                                        <a href="shopdetails?pid={{ g.pid }}">
+                                            <img src="{% static 'media/' %}{{ g.productimage }}"
+                                                 class="img-fluid full-width"
+                                                 alt="product-img">
+                                        </a>
+                                        <div class="product-badge">
+                                            <div class="product-label new"><span>New</span>
+                                            </div>
+                                        </div>
+                                        <div class="button-group">
+                                            <a onclick="comparelist({{ g.pid }})" data-toggle="tooltip" data-placement="left" title=""
+                                               data-original-title="Add to Compare" tabindex="-1"><i
+                                                    class="pe-7s-refresh-2"></i></a><a onclick="quickviewmodal({{ g }})"><span
+                                                 data-toggle="tooltip"
+                                                data-placement="left" title="" data-original-title="Quick View"><i
+                                                class="pe-7s-search"></i></span></a>
+                                        </div>
+                                        <div class="cart-hover"><a href="shopdetails?pid={{ g.pid }}"
+                                                                   class="btn-cart  fw-600"
+                                                                   tabindex="-1">Add To Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="product-caption text-center"><span class="product-category"><a
+                                            href="#">{{ g.category }}</a></span>
+                                        <h6 class="product-title fw-500 mt-10"><a href="shop-details.html"
+                                                                                  class="text-light-black">{{ g.productname }}</a>
+                                        </h6>
+                                        <div class="product-money mt-10"><span
+                                                class="text-dark-red fw-500">&#8377; {{ g.productprice }}</span>
+                                            <span class="text-price">&#8377; {{ g.discountedprice }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="large-product-box  p-relative">
+                    <img src="{% static 'assets/img/promo/p-2.jpg' %}" class="img-fluid full-width" alt="image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--shopping end section-->
+<!--Special offer-->
+<section class="section-padding ex-collection bg-theme-primary">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header-left">
+                    <h3 class="text-light-black header-title title">Our Special Offers</h3>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <figure class="banner-statistics">
+                    <a href="shop?search=Neckwear" class="promo-lines">
+                        <img src="{% static 'assets/img/deal/deal5.jpg' %}" alt="product banner"
+                             class="full-width img-fluid">
+                    </a>
+                    <div class="banner-content text-left">
+                        <h6 class="banner-text1">Necklace</h6>
+                        <h4 class="banner-text2">Victoria Diamond <span>Necklace</span></h4>
+                        <a href="shop?search=Neckwear" class="btn btn-text">Shop Now</a>
+                    </div>
+                </figure>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <figure class="banner-statistics">
+                    <a href="shop?search=bracelet" class="promo-lines">
+                        <img src="{% static 'assets/img/deal/deal4.jpg' %}" alt="product banner"
+                             class="full-width img-fluid">
+                    </a>
+                    <div class="banner-content text-left">
+                        <h6 class="banner-text1">BRacelet</h6>
+                        <h4 class="banner-text2">Best Handmade <span>Bracelets</span></h4>
+                        <a href="shop?search=bracelet" class="btn btn-text">Shop Now</a>
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'publicFooter.html' %}
+<div class="modal fade" id="quickview">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <!-- product details inner end -->
+                <div class="product-details-inner">
+                    <div class="row">
+                        <div class="col-lg-5 align-self-center">
+                            <div class="shop-detail-image">
+                                <div class="detail-slider">
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+                                                <a href="#" class="popup">
+                                                    <img id="productimage"
+                                                         src="{% static 'assets/img/shop/maindetail.jpg' %}"
+                                                         class="img-fluid full-width" alt="slider">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="shop-detail-contents mb-md-40 mt-md-40">
+                                <div class="shop-detail-content-wrapper">
+                                    <h3 class="text-custom-black" id="productname"></h3>
+                                </div>
+                                <div class="price">
+                                    <h4 class="text-custom-red price-tag" id="discountedprice">$45 <span
+                                            class="text-light-white fw-400 fs-14">$50</span></h4>
+                                </div>
+                                <div class="product-full-des mb-20">
+                                    <p class="mb-0" id="productdesc">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                        elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+                                </div>
+                                <div class="availibity mt-20" id="productstock">
+                                </div>
+                                <a href="shopdetails?pid=" id="addcart" class="btn btn-cart w-50 rounded" tabindex="-1">Add To
+                                        Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- product details inner end -->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'myjs/index.js' %}"></script>
+</body>
+</html>

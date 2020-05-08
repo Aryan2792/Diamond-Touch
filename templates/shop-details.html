@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<!-- Mirrored from slidesigma.com/themes/html/gemstone/shop-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Feb 2020 08:20:35 GMT -->
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Gemstone | Shop-Details</title>
+    {% include 'publicHeader.html' %}
+</head>
+
+<body>
+<!-- Navigation -->
+{% if request.session.client %}
+    {% include 'clientNavbar.html' %}
+{% else %}
+    {% include 'publicNavbar.html' %}
+{% endif %}
+<div class="main-sec"></div>
+<!-- breadcrumb -->
+<div class="breadcrumb-area">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2 class="text-white">Shop Details</h2>
+            <ul>
+                <li><a href="index.html">Home</a>
+                </li>
+                <li><a href="shop">Shop</a>
+                </li>
+                <li class="active">{{ productdata.productname }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb -->
+<!--Shop-Details-->
+<section class="section-padding bg-light-theme">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="shop-detail-image">
+                    <div class="detail-slider">
+                        <div class="swiper-container gallery-top">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="#" class="popup">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </a>
+                                    <div class="shop-type-tag"><a class="bg-custom-black type-tag">Sale</a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#" class="popup">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </a>
+                                    <div class="shop-type-tag"><a class="bg-custom-black type-tag">Sale</a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#" class="popup">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </a>
+                                    <div class="shop-type-tag"><a href="#" class="bg-custom-black type-tag">Sale</a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#" class="popup">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </a>
+                                    <div class="shop-type-tag"><a href="#" class="bg-custom-black type-tag">Sale</a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#" class="popup">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </a>
+                                    <div class="shop-type-tag"><a href="#" class="bg-custom-black type-tag">Sale</a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#" class="popup">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </a>
+                                    <div class="shop-type-tag"><a href="#" class="bg-custom-black type-tag">Sale</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Arrows -->
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next swiper-button-white"></div>
+                            <div class="swiper-button-prev swiper-button-white"></div>
+                            <div class="swiper-container gallery-thumbs ">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'media/' %}{{ productdata.productimage }}"
+                                             class="img-fluid full-width" alt="slider">
+                                    </div>
+                                </div>
+                                <!-- Add Arrows --> <span class="swiper-notification" aria-live="assertive"
+                                                          aria-atomic="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="shop-detail-contents mb-md-40 mt-md-40">
+                    <div class="shop-detail-content-wrapper">
+                        <h3 class="text-custom-black">{{ productdata.productname }}</h3>
+                    </div>
+                    <div class="price">
+                        <h4 class="text-custom-red price-tag">&#8377; {{ productdata.discountedprice }}<span
+                                class="text-light-white fw-400 fs-14">&#8377; {{ productdata.productprice }}</span></h4>
+                    </div>
+                    <div class="product-full-des mb-20">
+                        <p class="mb-0">{{ productdata.productdesc }}</p>
+                    </div>
+                    <div class="availibity mt-20">
+                        <h6 class="text-custom-black fw-600">Avability: <span class="text-success ml-2">
+                                {% if productdata.productstock > 0 %}
+                                    In Stock
+                                {% else %}
+                                    Out of Stock
+                                {% endif %}</span></h6>
+                    </div>
+                    <div class="quantity mb-xl-20">
+                        <h6 class="text-custom-black mb-0 mr-2 fw-600">Qty:</h6>
+                        <div class="product-qty-input">
+                            <button onclick="updateqty({{ productdata.productstock }},'minus')" type="button"
+                                    name="button"><i class="fas fa-minus"></i>
+                            </button>
+                            <input type="text" disabled id="qty" max="{{ productdata.productstock }}" min="1"
+                                   data-rule-max="{{ productdata.productstock }}" data-rule-required="true"
+                                   class="form-control form-control-qty text-center" name="qty"
+                                   value="{{ productdata.qty }}">
+                            <button onclick="updateqty({{ productdata.productstock }},'add')" type="button"
+                                    name="button"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="shop-bottom d-inline-flex">
+                        {% if productdata.productstock > 0 %}
+                            <div class="product-btn mt-20">
+                                <button data-toggle="tooltip" data-placement="top" title="Add To Card" onclick="sessionProduct({{ productdata.pid }})"
+                                        class="btn-solid with-line ml-2">Add to
+                                    Cart
+                                </button>
+                            </div>
+                        {% else %}
+                            <div class="product-btn mt-20">
+                                <button data-toggle="tooltip" data-placement="top" title="Out of Stock" class="btn-solid bg-danger text-light with-line ml-2">Out of Stock !</button>
+                            </div>
+                        {% endif %}
+                        <div class="product-btn mt-20">
+                            <button id="comparelist" onclick="comparelist({{ productdata.pid }})" data-toggle="tooltip" data-placement="top" title="Add Compare List" class="btn btn-outline-primary ml-2">
+                                <i class="fa fa-bell"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'myjs/productdetails.js' %}"></script>
+{% include 'publicFooter.html' %}
+</body>
+</html>
