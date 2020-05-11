@@ -136,11 +136,11 @@
                     <h1 class="modal-title mx-auto">Shipping Order</h1>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="email" id="email">
-                    <input type="hidden" name="phone" id="phone">
+                    <input type="hidden" name="orderno" id="orderno">
+{#                    <input type="hidden" name="phone" id="phone">#}
                     <div class="form-group">
                         <label for="#">Tracking ID</label>
-                        <input type="number" data-rule-min="100000" data-rule-max="1000000" class="form-control"
+                        <input type="number" class="form-control"
                                name="trackingid">
                     </div>
                     <div class="form-group">
@@ -173,8 +173,8 @@
                     <h1 class="modal-title mx-auto">Dispatched Order</h1>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="disemail" id="disemail">
-                    <input type="hidden" name="disphone" id="disphone">
+                    <input type="hidden" name="urorderno" id="urorderno">
+{#                    <input type="hidden" name="disphone" id="disphone">#}
                     <label for="#">Person Recieved</label>
                     <input type="text" name="personrecieved" id="personrecieved" class="form-control" data-rule-required="true" required>
                 </div>

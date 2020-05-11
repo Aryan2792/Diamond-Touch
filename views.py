@@ -776,23 +776,23 @@ def paymentBill(request):
         else:
             return render(request,'checkout.html',{'message':'Data not Valid'})
         if result3 == 'success':
-            try:
-                mobile = request.POST["disphone"]
-            except:
-                mobile = request.session['client']['clientPhone']
-            print('test', mobile)
-            msg += 'Total Amount = ' + str(grandtotal)
-            print(msg)
-            msg = msg.replace(" ", "%20")
-            try:
-                conn = http.client.HTTPConnection("server1.vmm.education")
-                conn.request('GET','/VMMCloudMessaging/AWS_SMS_Sender?username=jaspreetkaur&password=LL3HZ0QJ&message=' + msg + '&phone_numbers=' + str(mobile))
-                response = conn.getresponse()
-                print(response)
-            except :
-                return redirect(failedPayment)
-            # return HttpResponse(s)
-            print(result3)
+            # try:
+            #     mobile = request.POST["disphone"]
+            # except:
+            #     mobile = request.session['client']['clientPhone']
+            # print('test', mobile)
+            # msg += 'Total Amount = ' + str(grandtotal)
+            # print(msg)
+            # msg = msg.replace(" ", "%20")
+            # try:
+            #     conn = http.client.HTTPConnection("server1.vmm.education")
+            #     conn.request('GET','/VMMCloudMessaging/AWS_SMS_Sender?username=jaspreetkaur&password=LL3HZ0QJ&message=' + msg + '&phone_numbers=' + str(mobile))
+            #     response = conn.getresponse()
+            #     print(response)
+            # except :
+            #     return redirect(failedPayment)
+            # # return HttpResponse(s)
+            # print(result3)
             request.session['product'] = ''
             del request.session['product']
             return HttpResponse(result1[0])
@@ -846,27 +846,27 @@ def billdetails(request):
 def shipping(request):
     if request.method == 'POST':
         if request.POST['trackingid'] and request.POST['companyname'] and request.POST['trackingurl'] and request.POST[
-            'email'] and str(request.POST['trackingid']).isnumeric() == True and str(
+            'orderno'] and str(request.POST['trackingid']).isnumeric() == True and str(
             request.POST['companyname']).isnumeric() == False:
-            s = 'update bill set trackid="{}", companyname="{}", trackurl="{}", status="Shipped", remarks="{}" where email="{}" and status!="cancelled"'.format(
+            s = 'update bill set trackid="{}", companyname="{}", trackurl="{}", status="Shipped", remarks="{}" where billID="{}" and status!="cancelled"'.format(
                 request.POST['trackingid'], request.POST['companyname'], request.POST['trackingurl'],
-                request.POST['remark'], request.POST['email'])
+                request.POST['remark'], request.POST['orderno'])
             print(s)
             result1 = Update(s)
             print(result1)
             if result1 == 'success':
-                mobile = request.POST["phone"]
-                # print('test', mobile)
-                msg = "Your Package has been Shipped. And Your Tracking ID is: "+request.POST['trackingid']
-                print(msg)
+                # mobile = request.POST["phone"]
+                # # print('test', mobile)
+                # msg = "Your Package has been Shipped. And Your Tracking ID is: "+request.POST['trackingid']
+                # print(msg)
                 # msg = msg.replace(" ", "%20")
-                conn = http.client.HTTPConnection("server1.vmm.education")
-                conn.request('GET',
-                             '/VMMCloudMessaging/AWS_SMS_Sender?username=jaspreetkaur&password=LL3HZ0QJ&message=' + msg + '&phone_numbers=' + str(
-                                 mobile))
-                response = conn.getresponse()
-                print(response)
-                return HttpResponse(s)
+                # conn = http.client.HTTPConnection("server1.vmm.education")
+                # conn.request('GET',
+                #              '/VMMCloudMessaging/AWS_SMS_Sender?username=jaspreetkaur&password=LL3HZ0QJ&message=' + msg + '&phone_numbers=' + str(
+                #                  mobile))
+                # response = conn.getresponse()
+                # print(response)
+                return HttpResponse('success')
         else:
             return HttpResponse('Data not valid')
 
@@ -874,25 +874,25 @@ def shipping(request):
 @csrf_exempt
 def dispatched(request):
     if request.method == 'POST':
-        if request.POST['disemail'] and request.POST['personrecieved'] and str(request.POST['personrecieved']).isnumeric() == False:
-            s = 'update bill set status="Dispatched", personrecieved="{}" where email="{}" and status!="cancelled"'.format(
-                request.POST['personrecieved'], request.POST['disemail'])
+        if request.POST['personrecieved'] and str(request.POST['personrecieved']).isnumeric() == False:
+            s = 'update bill set status="Dispatched", personrecieved="{}" where billID="{}" and status!="cancelled"'.format(
+                request.POST['personrecieved'], request.POST['urorderno'])
             print(s)
             result1 = Update(s)
             print(result1)
             if result1 == 'success':
-                mobile = request.POST["disphone"]
-                print('test', mobile)
-                msg = "Thank You For Shopping With us. Your Package has been dispatched"
-                print(msg)
+                # mobile = request.POST["disphone"]
+                # print('test', mobile)
+                # msg = "Thank You For Shopping With us. Your Package has been dispatched"
+                # print(msg)
                 # msg = msg.replace(" ", "%20")
-                conn = http.client.HTTPConnection("server1.vmm.education")
-                conn.request('GET',
-                             '/VMMCloudMessaging/AWS_SMS_Sender?username=jaspreetkaur&password=LL3HZ0QJ&message=' + msg + '&phone_numbers=' + str(
-                                 mobile))
-                response = conn.getresponse()
-                print(response)
-                return HttpResponse(s)
+                # conn = http.client.HTTPConnection("server1.vmm.education")
+                # conn.request('GET',
+                #              '/VMMCloudMessaging/AWS_SMS_Sender?username=jaspreetkaur&password=LL3HZ0QJ&message=' + msg + '&phone_numbers=' + str(
+                #                  mobile))
+                # response = conn.getresponse()
+                # print(response)
+                return HttpResponse('success')
         else:
             return HttpResponse('Data not valid')
 

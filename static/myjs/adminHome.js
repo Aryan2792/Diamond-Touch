@@ -19,7 +19,7 @@ function table(output, find) {
         for (var i of output) {
             t += '<tr><td>' + i.srno + '</td><td>' + i.orderno + '</td><td>' + i.datatime + '</td><td>' + i.grandtotal + '</td><td>' + i.paymentmethod + '</td><td><div>' + i.useremail + '</div><div>' + i.userdetails[0] + '</div><div>' + i.userdetails[1] + '</div></td>';
             t += "<td><a class='btn btn-outline-secondary' onclick='showdetailmodal(" + JSON.stringify(i.orderno) + ")'>View Details</a></td>";
-            t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.useremail) + "," + JSON.stringify(find) + "," + JSON.stringify(i.phone) + ")'>Ship Order</button></td></tr>";
+            t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.orderno) + "," + JSON.stringify(find) + ")'>Ship Order</button></td></tr>";
         }
         document.getElementById('tfilter').innerHTML = t;
     } else if (find == 'ship') {
@@ -27,14 +27,14 @@ function table(output, find) {
         for (var i of output) {
             t += '<tr><td>' + i.srno + '</td><td>' + i.orderno + '</td><td>' + i.datatime + '</td><td>' + i.grandtotal + '</td><td>' + i.paymentmethod + '</td><td><div>' + i.useremail + '</div><div>' + i.userdetails[0] + '</div><div>' + i.userdetails[1] + '</div></td>';
             t += "<td><a class='btn btn-outline-secondary' onclick='showdetailmodal(" + JSON.stringify(i.orderno) + ")'>View Details</a></td>";
-            t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.useremail) + "," + JSON.stringify(find) + "," + JSON.stringify(i.phone) + ")'>Dispatch Order</button></td></tr>";
+            t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.orderno) + "," + JSON.stringify(find) + ")'>Dispatch Order</button></td></tr>";
         }
         document.getElementById('tfilter').innerHTML = t;
     } else if (find == 'Dispatched') {
         var t = "";
         for (var i of output) {
             t += '<tr><td>' + i.srno + '</td><td>' + i.orderno + '</td><td>' + i.datatime + '</td><td>' + i.grandtotal + '</td><td>' + i.paymentmethod + '</td><td><div>' + i.useremail + '</div><div>' + i.userdetails[0] + '</div><div>' + i.userdetails[1] + '</div></td>';
-            t += "<td><a class='btn btn-outline-secondary' onclick='showdetailmodal(" + JSON.stringify(i.orderno) + ")'>View Details</a></td>";
+            t += "<td><a class='btn btn-outline-secondary' onclick='showdetailmodal(" + JSON.stringify(i.orderno) + "," + JSON.stringify(find) + ")'>View Details</a></td>";
             t += "<td><button class='btn btn-outline-muted' style='cursor: not-allowed'>Order Delivered</button></td></tr>";
         }
         document.getElementById('tfilter').innerHTML = t;
@@ -52,9 +52,9 @@ function table(output, find) {
             t += '<tr><td>' + i.srno + '</td><td>' + i.orderno + '</td><td>' + i.datatime + '</td><td>' + i.grandtotal + '</td><td>' + i.paymentmethod + '</td><td><div>' + i.useremail + '</div><div>' + i.userdetails[0] + '</div><div>' + i.userdetails[1] + '</div></td>';
             t += "<td><a class='btn btn-outline-secondary' onclick='showdetailmodal(" + JSON.stringify(i.orderno) + ")'>View Details</a></td>";
             if (i.status=='pending'){
-                t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.useremail) + "," + JSON.stringify(find) + "," + JSON.stringify(i.phone) + ")'>Ship Order</button></td></tr>";
+                t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.orderno) + "," + JSON.stringify(find) + ")'>Ship Order</button></td></tr>";
             }else if (i.status=='Ship' || i.status=='Shipped'){
-                t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.useremail) + "," + JSON.stringify(find) + "," + JSON.stringify(i.phone) + ")'>Dispatch Order</button></td></tr>";
+                t += "<td><button class='btn btn-outline-primary' onclick='showmodal(" + JSON.stringify(i.orderno) + "," + JSON.stringify(find) + ")'>Dispatch Order</button></td></tr>";
             }else if (i.status=='cancelled'){
                 t += "<td><button class='btn btn-outline-muted' style='cursor: not-allowed'>Cancelled Order</button></td></tr>";
             }
@@ -66,14 +66,14 @@ function table(output, find) {
     }
 }
 
-function showmodal(email, find, phone) {
+function showmodal(orderno, find) {
     if (find == 'pending') {
-        $('#phone').val(phone);
-        $('#email').val(email);
+
+        $('#orderno').val(orderno);
         $("#shipModal").modal('show');
-    } else {
-        $('#disemail').val(email);
-        $('#disphone').val(phone);
+    }else{
+        $('#urorderno').val(orderno);
+
         $("#dispatchedModal").modal('show');
     }
 }
@@ -111,8 +111,14 @@ function shippingconfirm() {
     var xml = new XMLHttpRequest();
     xml.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            $("#shipModal").modal('hide');
-            window.location.href = 'alladmin';
+            var output = this.response;
+            if (output == 'success'){
+                $("#shipModal").modal('hide');
+                getdata('pending');
+            }
+            else {
+                alert('Error Occured');
+            }
         }
     };
     xml.open('POST', 'shipping', true);
@@ -121,6 +127,7 @@ function shippingconfirm() {
 
 
 function dispatchedconfirm() {
+
     var formdata = new FormData();
     var controls = document.getElementById('dispatchedid').elements;
     for (var i of controls) {
@@ -130,9 +137,15 @@ function dispatchedconfirm() {
     xml.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // alert(this.response);
-            $("#dispatchedModal").modal('hide');
-            getdata('ship');
-            // window.location.href = 'alladmin';
+            var output = this.response;
+            if (output == 'success'){
+                $("#dispatchedModal").modal('hide');
+                getdata('ship');
+            }
+            else {
+                alert('Error Occured');
+            }
+
         }
     };
     xml.open('POST', 'dispatched', true);
